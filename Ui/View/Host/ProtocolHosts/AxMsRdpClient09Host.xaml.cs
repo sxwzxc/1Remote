@@ -500,7 +500,11 @@ namespace _1RM.View.Host.ProtocolHosts
             }
             _rdpClient.SetExtendedProperty("DeviceScaleFactor", (uint)100);
             if (_rdpSettings.RdpWindowResizeMode == ERdpWindowResizeMode.Stretch || _rdpSettings.RdpWindowResizeMode == ERdpWindowResizeMode.StretchFullScreen)
+            {
                 _rdpClient.AdvancedSettings2.SmartSizing = true;
+                // SmartSizing only scales down by default; EnableZoom (must be set before Connect) allows scaling up beyond the native resolution.
+                _rdpClient.SetExtendedProperty("EnableZoom", true);
+            }
             // to enhance user experience, i let the form handled full screen
             _rdpClient.AdvancedSettings6.ContainerHandledFullScreen = 1;
 
